@@ -30,6 +30,7 @@ if Rails::VERSION::MAJOR == 3 && [0,1].include?(Rails::VERSION::MINOR) # Rails 3
 		end
 	end
 
+	require 'action_view/helpers'
 	require 'action_view/helpers/url_helper'
 
 	module ActionView
