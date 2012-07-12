@@ -6,7 +6,10 @@ module RailsSubSessions
 
 		initializer 'rails_sub_sessions.insert_middleware' do |app|
 			app.middleware.insert_before "ActionDispatch::Static", "RailsSubSessions::Middleware::GetIdFromPathInfo"
-			app.middleware.insert_after  "ActiveRecord::SessionStore", "RailsSubSessions::Middleware::SubSessionStore"
+
+			# Flash is currently situated just after Rails session middleware.  This avoids the need to discover
+			# which particular session middleware an app is using.
+			app.middleware.insert_before "ActionDispatch::Flash", "RailsSubSessions::Middleware::SubSessionStore"
 		end
 
 	end
